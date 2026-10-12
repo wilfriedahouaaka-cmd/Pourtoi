@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Le Jardin Secret</title>
+<link href="https://cdn-icons-png.flaticon.com/512/1047/1047087.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Arrière-plan permanent -->
+<div class="master-bg" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgJgaSYP9HgENSBGER7y77dxedkqjrtCrbFV-tWKQJz4l5e2KUi6-epaNbwpnWGaF4QxBWjHIFWazWxQX0d3TPcyG7mht5kHVUJwJaeibaW0wDP9SzFWvy91AU07VirmvGCmI4TQ6Q1sTwM2RZ1CZcaiYSNLknlDJKy-_RDtqLOBGExgPcDM77aV94O-_7ZR_1Fkl386yWG4dc2xnue4cm76LnwNVF3Zf6mymo6YkKD7Ym-uDRPofj0GJnOpUPGX2c'), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDQBC_HkpiJa0vDPOJnu18I-eHNW1kQBLa7ZQCwEjc4Eem0srtL919xjeiLClw6BK1GhFIrPuQ6GqkitFV9Jelb4HiRbv_Ah6aQmQI7yr0uDGJYxNOpz2az8RZyJuL3oXBbLrkLMzgcUVUrHFM2n4LF4T6mwFzIGYTJPkowe6QQ1KkZLZeTRwmukli0WQx8N1YC8R1Udhq0SdV5cRdVkDPsnFyF6GR04bL_zp051wMrJF5oa85tfOW7pYEB8fiYO2uq'); background-blend-mode: screen; opacity: 0.55; filter: contrast(1.15) brightness(0.85);"></div>
+<div class="master-overlay"></div>
+<div class="cosmic-ambient" style="position: fixed; inset: 0; pointer-events: none; z-index: 2; background: radial-gradient(circle at 75% 25%, rgba(168, 85, 247, 0.22) 0%, transparent 60%), radial-gradient(circle at 20% 70%, rgba(236, 72, 153, 0.18) 0%, transparent 55%); mix-blend-mode: screen;"></div>
+
+<!-- Audio -->
+<audio id="bg-music" loop>
+<source src="T_es Une Etoile.mp3" type="audio/mpeg"/>
+</audio>
+
+<!-- Contrôle Audio -->
+<div id="audio-control">
+<div class="audio-pill"><span class="dot" style="background: #d946ef; box-shadow: 0 0 10px #d946ef;"></span><span>Nébuleuse Dorée</span></div>
+<button id="mute-btn" title="Contrôle de l'ambiance sonore">🔊</button>
+</div>
+
+<!-- 1. ENTRY PORTAL -->
+<section class="screen active" id="entry-portal">
+<div class="fog-container"></div>
+<div class="portal-content">
+<p class="sub-badge">✦ Sanctuaire Secret & Voûte Céleste ✦</p>
+<h1 class="cinzel">Le Jardin Secret</h1>
+<div class="gate-visual">
+<div class="gate-inner-arch"></div>
+<div class="gate-left"></div>
+<div class="gate-right"></div>
+<div class="gate-lock">🗝️</div>
+</div>
+<button class="magic-btn" id="open-portal">Ouvrir le portail</button>
+<p class="poetic-font sub-quote">« Laisse la magie s'éveiller... »</p>
+</div>
+</section>
+
+<!-- 2. GERMINATION -->
+<section class="screen" id="germination">
+<div class="germination-wrapper">
+<div class="seed-container">
+<div class="seed" id="seed"></div>
+<div class="sprout" id="sprout"></div>
+</div>
+<p class="poetic-font germination-text">Laisse la magie s'éveiller sous la lune dorée...</p>
+</div>
+</section>
+
+<!-- 3. THE GARDEN -->
+<section class="screen" id="garden">
+<div class="garden-header-hint">
+<span>Fleurs explorées :</span>
+<span class="flower-count-badge" id="bloom-counter">0 / 12</span>
+</div>
+<div id="fireflies-container"></div>
+<div class="garden-canvas"></div>
+
+<div class="modal" id="flower-modal">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<div id="media-container"></div>
+<p class="thought poetic-font" id="thought-text"></p>
+</div>
+</div>
+</section>
+
+<!-- 4. FINAL SCREEN -->
+<section class="screen" id="final-confession">
+<div class="final-content">
+<div class="final-bloom"></div>
+<p class="confession-title">✦ Écrit dans le silence des étoiles ✦</p>
+<div class="confession-text poetic-font">
+<span id="typing-text"></span><span class="cursor-blink"></span>
+</div>
+<button class="restart-btn" id="restart-btn">Recommencer le voyage</button>
+</div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
