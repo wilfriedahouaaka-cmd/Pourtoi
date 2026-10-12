@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const mediaItems = [
-        // 7 Images
         { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46.jpeg', text: 'Il y a des regards qui restent longtemps après.' },
         { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.47.jpeg', text: 'Certaines présences changent la lumière d’une pièce.' },
         { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46 (2).jpeg', text: 'On n’oublie pas facilement ce qui laisse une trace douce.' },
@@ -9,8 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46 (4).jpeg', text: 'Quelques détails suffisent parfois à tout retenir.' },
         { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46 (5).jpeg', text: 'Certaines personnes rendent l’ordinaire un peu plus clair.' },
         { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.45 (3).jpeg', text: 'Il y a des moments qui restent gravés sans qu’on le décide.' },
-
-        // 5 Vidéos
         { type: 'video', src: 'WhatsApp Video 2026-09-14 at 02.32.52.mp4', text: 'Il y a des gestes qui restent en mémoire.' },
         { type: 'video', src: 'WhatsApp Video 2026-09-16 at 21.34.36.mp4', text: 'Le temps passe, mais certains moments restent.' },
         { type: 'video', src: 'WhatsApp Video 2026-09-16 at 21.34.37.mp4', text: 'On reconnaît parfois une présence sans même la nommer.' },
@@ -40,7 +37,6 @@ Grâce Yasmine
 
 — Wilfried`;
 
-    // Éléments
     const portalBtn = document.getElementById('open-portal');
     const portalContent = document.querySelector('.portal-content');
     const entryPortal = document.getElementById('entry-portal');
@@ -55,13 +51,11 @@ Grâce Yasmine
     const mediaContainer = document.getElementById('media-container');
     const thoughtText = document.getElementById('thought-text');
     const typingText = document.getElementById('typing-text');
-    const bloomCounter = document.getElementById('bloom-counter');
     const restartBtn = document.getElementById('restart-btn');
 
     let flowersOpened = 0;
     let isMusicMuted = false;
 
-    // Ouverture du portail
     portalBtn.addEventListener('click', () => {
         bgMusic.play().catch(() => {});
         portalContent.classList.add('gate-open');
@@ -86,18 +80,10 @@ Grâce Yasmine
         for (let i = 0; i < 40; i++) createFirefly();
 
         const positions = [
-            { left: 14, top: 20 },
-            { left: 38, top: 16 },
-            { left: 64, top: 18 },
-            { left: 84, top: 26 },
-            { left: 20, top: 42 },
-            { left: 48, top: 38 },
-            { left: 74, top: 44 },
-            { left: 12, top: 66 },
-            { left: 34, top: 64 },
-            { left: 60, top: 68 },
-            { left: 82, top: 62 },
-            { left: 48, top: 82 }
+            { left: 14, top: 20 }, { left: 38, top: 16 }, { left: 64, top: 18 },
+            { left: 84, top: 26 }, { left: 20, top: 42 }, { left: 48, top: 38 },
+            { left: 74, top: 44 }, { left: 12, top: 66 }, { left: 34, top: 64 },
+            { left: 60, top: 68 }, { left: 82, top: 62 }, { left: 48, top: 82 }
         ];
 
         mediaItems.forEach((item, index) => {
@@ -130,14 +116,8 @@ Grâce Yasmine
         if (!element.classList.contains('bloomed')) {
             element.classList.add('bloomed');
             flowersOpened++;
-            bloomCounter.textContent = `${flowersOpened} / ${mediaItems.length}`;
-
-            document.getElementById('garden').style.background =
-                `radial-gradient(circle at center, rgba(4, 10, 7, ${Math.max(0.2, 0.9 - flowersOpened / 14)}) 0%, var(--bg-dark) 100%)`;
         }
-
         showReveal(data);
-
         if (flowersOpened >= mediaItems.length) {
             showContinueButton();
         }
@@ -145,22 +125,16 @@ Grâce Yasmine
 
     function showContinueButton() {
         if (document.getElementById('continue-btn')) return;
-
         const btn = document.createElement('button');
         btn.id = 'continue-btn';
         btn.className = 'continue-btn';
         btn.textContent = 'Continuer vers le Sanctuaire →';
-
-        btn.addEventListener('click', () => {
-            triggerFinalConfession();
-        });
-
+        btn.addEventListener('click', () => triggerFinalConfession());
         document.getElementById('garden').appendChild(btn);
     }
 
     function showReveal(data) {
         mediaContainer.innerHTML = '';
-
         if (data.type === 'image') {
             const img = document.createElement('img');
             img.src = data.src;
@@ -176,26 +150,18 @@ Grâce Yasmine
             mediaContainer.appendChild(video);
             bgMusic.pause();
         }
-
         thoughtText.textContent = data.text;
         flowerModal.classList.add('active');
     }
 
     closeModal.addEventListener('click', closeTheModal);
-
     flowerModal.addEventListener('click', (e) => {
-        if (e.target === flowerModal) {
-            closeTheModal();
-        }
+        if (e.target === flowerModal) closeTheModal();
     });
 
     function closeTheModal() {
         flowerModal.classList.remove('active');
-
-        if (!isMusicMuted) {
-            bgMusic.play().catch(() => {});
-        }
-
+        if (!isMusicMuted) bgMusic.play().catch(() => {});
         const video = mediaContainer.querySelector('video');
         if (video) {
             video.pause();
@@ -205,13 +171,9 @@ Grâce Yasmine
 
     function triggerFinalConfession() {
         gardenScreen.classList.remove('active');
-
         setTimeout(() => {
             finalConfession.classList.add('active');
-
-            setTimeout(() => {
-                typeWriter(finalMessage, typingText);
-            }, 600);
+            setTimeout(() => typeWriter(finalMessage, typingText), 600);
         }, 900);
     }
 
@@ -237,7 +199,6 @@ Grâce Yasmine
         ff.style.width = size + 'px';
         ff.style.height = size + 'px';
         document.getElementById('fireflies-container').appendChild(ff);
-
         ff.animate([
             { transform: 'translate(0, 0)', opacity: 0.2 },
             { transform: `translate(${Math.random()*100-50}px, ${Math.random()*100-50}px)`, opacity: 1 },
@@ -259,13 +220,10 @@ Grâce Yasmine
         finalConfession.classList.remove('active');
         portalContent.classList.remove('gate-open');
         germinationScreen.classList.remove('germinating');
-        
         flowersOpened = 0;
-        bloomCounter.textContent = `0 / ${mediaItems.length}`;
         document.querySelectorAll('.flower').forEach(f => f.classList.remove('bloomed'));
         const contBtn = document.getElementById('continue-btn');
         if (contBtn) contBtn.remove();
-        
         entryPortal.classList.add('active');
     });
 });
