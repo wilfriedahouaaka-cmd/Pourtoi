@@ -1,18 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let typeWriterTimer = null;
 
     const mediaItems = [
-        { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46.jpeg', text: 'Il y a des regards qui restent longtemps après.' },
-        { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.47.jpeg', text: 'Certaines présences changent la lumière d’une pièce.' },
-        { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46 (2).jpeg', text: 'On n’oublie pas facilement ce qui laisse une trace douce.' },
-        { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46 (3).jpeg', text: 'Il y a des silences qui en disent plus que des mots.' },
-        { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46 (4).jpeg', text: 'Quelques détails suffisent parfois à tout retenir.' },
-        { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.46 (5).jpeg', text: 'Certaines personnes rendent l’ordinaire un peu plus clair.' },
-        { type: 'image', src: 'WhatsApp Image 2026-09-16 at 21.34.45 (3).jpeg', text: 'Il y a des moments qui restent gravés sans qu’on le décide.' },
-        { type: 'video', src: 'WhatsApp Video 2026-09-14 at 02.32.52.mp4', text: 'Il y a des gestes qui restent en mémoire.' },
-        { type: 'video', src: 'WhatsApp Video 2026-09-16 at 21.34.36.mp4', text: 'Le temps passe, mais certains moments restent.' },
-        { type: 'video', src: 'WhatsApp Video 2026-09-16 at 21.34.37.mp4', text: 'On reconnaît parfois une présence sans même la nommer.' },
-        { type: 'video', src: 'WhatsApp Video 2026-09-16 at 21.34.43 (1).mp4', text: 'Quelques images suffisent à faire revenir un souvenir.' },
-        { type: 'video', src: 'WhatsApp Video 2026-09-16 at 21.34.44 (3).mp4', text: 'Certaines traces restent, même quand on ne les cherche pas.' }
+        { type: 'image', src: 'image-6.jpeg', text: 'Il y a des regards qui restent longtemps après.' },
+        { type: 'image', src: 'image-7.jpeg', text: 'Certaines présences changent la lumière d’une pièce.' },
+        { type: 'image', src: 'image-2.jpeg', text: 'On n’oublie pas facilement ce qui laisse une trace douce.' },
+        { type: 'image', src: 'image-3.jpeg', text: 'Il y a des silences qui en disent plus que des mots.' },
+        { type: 'image', src: 'image-4.jpeg', text: 'Quelques détails suffisent parfois à tout retenir.' },
+        { type: 'image', src: 'image-5.jpeg', text: 'Certaines personnes rendent l’ordinaire un peu plus clair.' },
+        { type: 'image', src: 'image-1.jpeg', text: 'Il y a des moments qui restent gravés sans qu’on le décide.' },
+        { type: 'video', src: 'video-1.mp4', text: 'Il y a des gestes qui restent en mémoire.' },
+        { type: 'video', src: 'video-2.mp4', text: 'Le temps passe, mais certains moments restent.' },
+        { type: 'video', src: 'video-3.mp4', text: 'On reconnaît parfois une présence sans même la nommer.' },
+        { type: 'video', src: 'video-4.mp4', text: 'Quelques images suffisent à faire revenir un souvenir.' },
+        { type: 'video', src: 'video-5.mp4', text: 'Certaines traces restent, même quand on ne les cherche pas.' }
     ];
 
     const finalMessage = `Certaines présences laissent une lumière
@@ -76,8 +77,12 @@ Grâce Yasmine
         }, 4000);
     }
 
-    function setupGarden() {
-        for (let i = 0; i < 40; i++) createFirefly();
+    function setupGarden() { 
+        gardenCanvas.innerHTML = '';
+        document.getElementById('fireflies-container').innerHTML = '';
+        flowersOpened = 0;
+        const fireflyCount = window.matchMedia('(max-width: 768px)').matches ? 20 : 40;
+        for (let i = 0; i < fireflyCount; i++) createFirefly();
 
         const positions = [
             { left: 14, top: 20 }, { left: 38, top: 16 }, { left: 64, top: 18 },
@@ -177,15 +182,17 @@ Grâce Yasmine
         }, 900);
     }
 
-    function typeWriter(text, element) {
+    function typeWriter(text, element) { 
+        if (typeWriterTimer) clearInterval(typeWriterTimer);
         let i = 0;
         element.textContent = '';
-        const timer = setInterval(() => {
+        typeWriterTimer = setInterval(() => {
             if (i < text.length) {
                 element.textContent += text.charAt(i);
                 i++;
             } else {
-                clearInterval(timer);
+                clearInterval(typeWriterTimer);
+                                    typeWriterTimer = null;
             }
         }, 45);
     }
@@ -217,6 +224,16 @@ Grâce Yasmine
     });
 
     restartBtn.addEventListener('click', () => {
+        const activeVideo = mediaContainer.querySelector('video');
+        if (activeVideo) activeVideo.pause();
+        mediaContainer.innerHTML = '';
+        flowerModal.classList.remove('active');
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+        isMusicMuted = false;
+        bgMusic.muted = false;
+        muteBtn.textContent = '🔊';
+        if (typeWriterTimer) clearInterval(typeWriterTimer);
         finalConfession.classList.remove('active');
         portalContent.classList.remove('gate-open');
         germinationScreen.classList.remove('germinating');

@@ -18,11 +18,13 @@
 }
 
 body {
+    overflow-x: hidden;
     background-color: var(--bg-dark);
     color: var(--white);
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
     height: 100vh;
+    height: 100svh;
     width: 100vw;
     position: relative;
 }
@@ -53,6 +55,7 @@ body {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
+    height: 100svh;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -352,6 +355,7 @@ body {
 .garden-canvas {
     position: absolute;
     width: 100vw; height: 100vh;
+    height: 100svh;
     overflow: hidden;
 }
 
@@ -634,4 +638,27 @@ body {
     .thought { font-size: 1.65rem; }
     .confession-text { font-size: 1.65rem; }
     .final-content { padding: 30px 18px; }
+}
+@keyframes invitePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
+    50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(212, 175, 55, 0.5); }
+}
+.magic-btn {
+    animation: invitePulse 3s infinite ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+    .magic-btn { animation: none; }
+}
+
+.close-modal {
+    width: 44px !important;
+    height: 44px !important;
+}
+
+.sub-quote {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-bloom, .cursor-blink { animation: none; }
 }
